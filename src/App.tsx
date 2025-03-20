@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { Button } from './ui/components/button/Button'
 import { spotifyApiService } from './service/spotifyApiService'
+import { useNavigate } from 'react-router'
 
 function App() {
   const [verified, setVerified] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if(!verified) {
@@ -20,11 +22,12 @@ function App() {
 
     try {
       await spotifyApiService.getToken(codeParam)
+      console.log(localStorage.getItem('access_token'))
+      navigate('/data-list')
     } catch(error) {
       console.log('ok')
     }
     
-
     setVerified(true)
   }
 
